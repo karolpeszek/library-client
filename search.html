@@ -1,0 +1,143 @@
+
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Library</title>
+        <link rel="icon" href="book.png">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+        <style>
+table{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.tableContainer {
+    overflow-x: auto;
+}
+</style>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <h1 class="text-center mt-3 mb-3">Library</h1>
+            <div class="card">
+                <div class="card-header">Browse and search books</div>
+                <div class="card-body">
+                    <p>Change your search query here:</p>
+                    <div class="mb-3">
+                        <input type="text" id="search-query"
+                            class="form-control">
+                    </div>
+                    <button class="btn btn-primary" onclick="search()">
+                        Search</button>
+                    <button class="btn btn-secondary"
+                        onclick="window.location.href='/'")">
+                        Return to home</button>
+
+                </div>
+
+
+            </div><br>
+            <div class="card">
+                <div class="card-header">Search result:</div>
+                <div class="card-body"><div class="tableContainer"
+                        id="booksTable"></div></div>
+            </div><br>
+            <div class="card">
+                <div class="card-header">Source code</div>
+                <div class="card-body"><a
+                        href="https://github.com/karolpeszek/library-client"
+                        target="_blank"><label>Client</label></a><br><a
+                        href="https://github.com/karolpeszek/library-server"
+                        target="_blank"><label>Server</label></a>
+                </div>
+            </div>
+        </div>
+        <script>
+    function search()
+    {
+        let query = document.getElementById('search-query').value;
+        window.location.href='/search.html?query='+query;
+
+
+    }
+</script>
+
+        <script>
+            let bookList = document.getElementById('booksTable');
+            let query = new URLSearchParams(window.location.search).get('query')||'';
+            document.getElementById('search-query').value=query;
+    fetch('https://library.karol.gay/books/search?query='+query).then((response) => response.json()).then((data) => {
+        console.log(data);
+if(data.length == 0)
+bookList.innerHTML = 'Sorry, no books match your criteria.';
+else
+{
+let html = '<table><tr><td>Title</td><td>Author</td><td>ISBN</td><td>Description</td></tr>'
+    for(let it=0; it<data.length; it++)
+    html+='<tr><td>'+data[it].title+'</td><td>'+data[it].author+'</td><td>'+data[it].isbn+'</td><td>'+data[it].description+'</td></tr>';
+    html+='</table>';
+    bookList.innerHTML=html;
+};
+
+
+
+
+}).catch((err)=>{
+
+console.log(err);
+});
+    </script>
+            <script>
+            let counter = 0;
+            function reconnect(){
+                if(counter>10)return;
+                counter++;
+        let ws = new WebSocket('wss://library.karol.gay/updates');
+
+        ws.addEventListener("open", () => {
+            console.log('connected')
+        })
+        ws.addEventListener("message", message => {
+            console.log(message.data);
+
+            if (message.data == "UPDATE")window.location.reload();
+        });
+        ws.addEventListener("close", () => {
+            reconnect();
+        });
+        ws.addEventListener("error", error => {
+            console.log(error);
+            reconnect();
+        })
+    }
+        reconnect();
+    </script>
+    </body>
+
+
+
+</html>
