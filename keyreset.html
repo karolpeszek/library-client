@@ -39,6 +39,14 @@
             </div>
             <br>
             <div class="card">
+                <div class="card-header">Notice</div>
+                <div class="card-body">
+                    <p>This site does not use passwords. Instead it uses Passkeys. They are more secure and you don't need to remember anything. This Passkey will be saved localy on your device. If you want to learn more about Passkeys clieck <a href="https://www.youtube.com/watch?v=zJPNuORkvvk" target="_blank">here</a>.</p>
+                </div>
+
+
+            </div><br>
+            <div class="card">
                 <div class="card-header">Source code</div>
                 <div class="card-body"><a
                         href="https://github.com/karolpeszek/library-client"
@@ -46,7 +54,7 @@
                         href="https://github.com/karolpeszek/library-server"
                         target="_blank"><label>Server</label></a>
                 </div>
-            </div>
+            </div><br><br>
         </div>
         <script>
 function parseJwt(token) {
@@ -93,10 +101,12 @@ function parseJwt(token) {
                     },
                     pubKeyCredParams: [{ alg: -7, type: "public-key" }],
                     authenticatorSelection: {
-                        requireResidentKey: true
+                        requireResidentKey: true,
+                        authenticatorAttachment: 'platform',
+                        userVerification: 'required'
                     },
                     timeout: 360000,
-                    attestation: "direct"
+                    attestation: 'none'
                 };
 
 
