@@ -219,7 +219,7 @@
                 document.getElementById('search-card').style.display = 'block';
                 document.getElementById('signout-card').style.display = 'block';
 
-                document.getElementById('signout-message').innerHTML = 'You are currently signed in as ' + object.name + '. You can sign out by pressing this button:'
+                document.getElementById('signout-message').innerHTML = 'You are currently signed in as ' + (object.name || object.mail) + '. You can sign out by pressing this button:'
 
                 console.log(object);
                 refreshData();

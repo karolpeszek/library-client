@@ -76,7 +76,8 @@
                     title: document.getElementById('title-box').value,
                     author: document.getElementById('author-box').value,
                     isbn: document.getElementById('isbn-box').value,
-                    description: document.getElementById('description-box').value
+                    description: document.getElementById('description-box').value,
+                    rentedby: (document.getElementById('owner-select').value == 'default' ? null : document.getElementById('owner-select').value)
                 }
                 fetch('https://library.karol.gay/books/add', {
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
