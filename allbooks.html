@@ -84,11 +84,11 @@
                     if (data.length == 0)
                         bookList.innerHTML = 'Sorry, no books available right now. Please come back later!';
                     else {
-                        let html = '<table><tr><td>Title</td><td>Author</td><td>ISBN</td><td>Description</td><td>Rent or return</td></tr>'
+                        let html = '<table><tr><td>Title</td><td>Author</td><td>ISBN</td><td>Description</td><td>Borrow or return</td></tr>'
                         for (let it = 0; it < data.length; it++) {
                             let status = null;
                             if (data[it].availableToRent)
-                                status = '<button class="btn btn-primary" onclick="rent(\'' + data[it].uuid + '\')">Rent</button>';
+                                status = '<button class="btn btn-primary" onclick="rent(\'' + data[it].uuid + '\')">Borrow</button>';
                             else if (data[it].rentedByYou)
                                 status = '<button class="btn btn-secondary" onclick="returnBook(\'' + data[it].uuid + '\')">Return</button>';
                             else
