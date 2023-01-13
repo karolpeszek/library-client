@@ -8,76 +8,66 @@
     </head>
 
     <body>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous">
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <div class="container">
             <h1 class="text-center mt-3 mb-3">Library</h1>
-
             <div class="card">
                 <div class="card-header">
                     Reset Passkey
                 </div>
                 <div class="card-body">
-                    <p>If you have trouble signing in and need to reset your
+                    <p>
+                        If you have trouble signing in and need to reset your
                         Passkey enter your e-mail here. We'll send you a link
                         that will have further instructions on how to reset your
-                        Passkey.</p>
-
+                        Passkey.
+                    </p>
                     <div class="mb-3">
-                        <input type="email" id="user-email"
-                            class="form-control">
+                        <input type="email" id="user-email" class="form-control">
                     </div>
                     <button class="btn btn-primary" onclick="resetKey()">
-                        Request Passkey reset</button>
-
+                        Request Passkey reset
+                    </button>
                 </div>
             </div>
             <br>
             <div class="card">
                 <div class="card-header">Source code</div>
-                <div class="card-body"><a
-                        href="https://github.com/karolpeszek/library-client"
-                        target="_blank"><label>Client</label></a><br><a
-                        href="https://github.com/karolpeszek/library-server"
-                        target="_blank"><label>Server</label></a>
+                <div class="card-body">
+                    <a href="https://github.com/karolpeszek/library-client" target="_blank">
+                        <label>Client</label>
+                    </a>
+                    <br>
+                    <a href="https://github.com/karolpeszek/library-server" target="_blank">
+                        <label>Server</label>
+                    </a>
                 </div>
-            </div><br><br>
+            </div>
+            <br>
+            <br>
         </div>
         <script>
-    function resetKey()
-{
-    let email = document.getElementById('user-email').value;
-    fetch('https://library.karol.gay/lostkey', {
-                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                        body: JSON.stringify({mail: email}) // body data type must match "Content-Type" header
-                    }).then(response => {
-                        console.log(response);
-                        if(response.ok)
-                        {
-                            window.alert('Check your email to finish resetting your key');
-                            window.location.href='/';
-                        }
-                        else
-                        {
-                            window.alert('Error resetting your key!')
-                        }
-                    })
+            function resetKey() {
+                let email = document.getElementById('user-email').value;
+                fetch('https://library.karol.gay/lostkey', {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    body: JSON.stringify({ mail: email }) // body data type must match "Content-Type" header
+                }).then(response => {
+                    console.log(response);
+                    if (response.ok) {
+                        window.alert('Check your email to finish resetting your key');
+                        window.location.href = '/';
+                    }
+                    else
 
+                        window.alert('Error resetting your key!')
 
-
-
-}
-</script>
+                });
+            }
+        </script>
     </body>
-
-
 
 </html>

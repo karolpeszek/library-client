@@ -5,24 +5,42 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>Library</title>
         <link rel="icon" href="book.png">
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td,
+            th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+
+            .tableContainer {
+                overflow-x: auto;
+            }
+        </style>
     </head>
 
     <body>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous">
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <div class="container">
             <h1 class="text-center mt-3 mb-3">Library</h1>
             <div class="card">
                 <div class="card-header">Welcome</div>
-                <div class="card-body"><h2 id="welcome-message">Hello, user!</h2></div>
+                <div class="card-body">
+                    <h2 id="welcome-message">Hello, user!</h2>
+                </div>
             </div>
             <div id="signin-card">
                 <br>
@@ -33,18 +51,19 @@
                     <div class="card-body">
                         <p>If you already created an account you can sign in by
                             clicking this button:</p>
-                            <div class="mb-3">
-                        <button class="btn btn-primary" onclick="signin()">Sign
-                            in with Passkeys &#128273;</button></div>
                         <div class="mb-3">
-                            <button class="btn btn-secondary"
-                            onclick="window.location.href='/lostdevice.html';">
-                            I've lost my Passkey</button></div>
+                            <button class="btn btn-primary" onclick="signin()">Sign
+                                in with Passkeys &#128273;</button>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-secondary" onclick="window.location.href='/lostdevice.html';">
+                                I've lost my Passkey</button>
+                        </div>
                         <hr>
-                        <p>If you haven't created an account yet you can sign up by entering your e-mail address here:</address>:</p>
+                        <p>If you haven't created an account yet you can sign up by entering your e-mail address here:
+                            </address>:</p>
                         <div class="mb-3">
-                            <input type="email" id="signup-email"
-                                class="form-control">
+                            <input type="email" id="signup-email" class="form-control">
                         </div>
                         <button class="btn btn-secondary" onclick="signup()">
                             Sign up</button>
@@ -56,16 +75,14 @@
                 <div class="card">
                     <div class="card-header">Browse and search books</div>
                     <div class="card-body">
-                        <p>You are signed in. You can search and browse books
+                        <p>You are signed in. You can browser, search, rent and return books
                             here:</p>
                         <div class="mb-3">
-                            <input type="text" id="search-query"
-                                class="form-control">
+                            <input type="text" id="search-query" class="form-control">
                         </div>
                         <button class="btn btn-primary" onclick="search()">
                             Search</button>
-                        <button class="btn btn-secondary"
-                            onclick="window.location.href='/allbooks.html'")">
+                        <button class="btn btn-secondary" onclick="window.location.href='/allbooks.html'" )">
                             Browse all</button>
 
                     </div>
@@ -77,17 +94,30 @@
                 <br>
 
             </div>
+            <div id="rented-card" style="display: none;">
+                <div class="card">
+                    <div class="card-header">Books you've rented</div>
+                    <div class="card-body" id="rented-books">
+
+                    </div>
+                </div>
+
+
+                <br>
+            </div>
             <div id="admin-card" style="display: none;">
                 <div class="card">
                     <div class="card-header">You are an admin!</div>
                     <div class="card-body">
-                        <p>You are an admin. That means you can edit, add or delete books. To edit books press this button:</p>
+                        <p>You are an admin. That means you can edit, add or delete books. To edit books press this
+                            button:
+                        </p>
                         <button class="btn btn-secondary" onclick="window.location.href='/admin.html'">
                             Edit</button>
                     </div>
                 </div><br>
             </div>
-<div id="signout-card" style="display: none;">
+            <div id="signout-card" style="display: none;">
                 <div class="card">
                     <div class="card-header">Sign out</div>
                     <div class="card-body">
@@ -105,151 +135,205 @@
 
             <div class="card">
                 <div class="card-header">Source code</div>
-                <div class="card-body"><a
-                        href="https://github.com/karolpeszek/library-client"
+                <div class="card-body"><a href="https://github.com/karolpeszek/library-client"
                         target="_blank"><label>Client</label></a><br><a
-                        href="https://github.com/karolpeszek/library-server"
-                        target="_blank"><label>Server</label></a>
+                        href="https://github.com/karolpeszek/library-server" target="_blank"><label>Server</label></a>
                 </div>
             </div><br><br>
         </div>
         <script>
-    function search()
-    {
-        let query = document.getElementById('search-query').value;
-        window.location.href='/search.html?query='+query;
+            function search() {
+                let query = document.getElementById('search-query').value;
+                window.location.href = '/search.html?query=' + query;
 
 
-    }
-</script>
-
+            }
+        </script>
         <script>
-        function parseJwt(token) {
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
+            function returnBook(uuid) {
+                fetch('https://library.karol.gay/rental/return/' + uuid, {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                }).then(response => {
+                    if (!response.ok)
+                        window.alert('Error returning this book');
 
-            return JSON.parse(jsonPayload);
-        }
 
-        function checkSignedIn() {
-            let token = document.cookie.slice(6);
-            try {
-                let userObject = parseJwt(token);
-                if(userObject.exp<Date.now())
-                {
-                    document.cookie = '';
+
+                })
+            }
+        </script>
+        <script>
+            let counter = 0;
+            function reconnect() {
+                if (counter > 10) return;
+                counter++;
+                let ws = new WebSocket('wss://library.karol.gay/updates');
+
+                ws.addEventListener("open", () => {
+                    console.log('connected')
+                })
+                ws.addEventListener("message", message => {
+                    console.log(message.data);
+
+                    if (message.data == "UPDATE") refreshData();
+                });
+                ws.addEventListener("close", () => {
+                    reconnect();
+                });
+                ws.addEventListener("error", error => {
+                    console.log(error);
+                    reconnect();
+                })
+            }
+            reconnect();
+        </script>
+        <script>
+            function parseJwt(token) {
+                var base64Url = token.split('.')[1];
+                var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                return JSON.parse(jsonPayload);
+            }
+
+            function checkSignedIn() {
+                let token = document.cookie.slice(6);
+                try {
+                    let userObject = parseJwt(token);
+                    if (userObject.exp < Date.now()) {
+                        document.cookie = '';
+                        return null;
+                    }
+                    return userObject;
+                } catch (exception) {
                     return null;
                 }
-                return userObject;
-            }catch(exception){
-                return null;
             }
-        }
 
-        let object = checkSignedIn();
-        if(object)
-        {
-            document.getElementById('signin-card').style.display = 'none';
-            document.getElementById('welcome-message').innerHTML = 'Hello, '+object.name;
-            document.getElementById('search-card').style.display='block';
-            document.getElementById('signout-card').style.display='block';
-            document.getElementById('signout-message').innerHTML= 'You are currently signed in as '+object.name+'. You can sign out by pressing this button:'
-            console.log(object);
-            if(object.admin)document.getElementById('admin-card').style.display='block';
-        }
-    </script>
-    <script>
-        function signout()
-        {
-            console.log('SINGING OUT');
-            document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
-            window.location.href='/';
-        }
-    </script>
+            let object = checkSignedIn();
+            if (object) {
+                document.getElementById('signin-card').style.display = 'none';
+                document.getElementById('welcome-message').innerHTML = 'Hello, ' + object.name;
+                document.getElementById('search-card').style.display = 'block';
+                document.getElementById('signout-card').style.display = 'block';
+
+                document.getElementById('signout-message').innerHTML = 'You are currently signed in as ' + object.name + '. You can sign out by pressing this button:'
+
+                console.log(object);
+                refreshData();
+
+                if (object.admin) document.getElementById('admin-card').style.display = 'block';
+            }
+            function refreshData() {
+                document.getElementById('rented-card').style.display = 'block';
+                let bookList = document.getElementById('rented-books');
+                fetch('https://library.karol.gay/rental/get').then((response) => response.json()).then((data) => {
+                    console.log(data);
+                    if (data.length == 0)
+                        bookList.innerHTML = 'You don\'t have any books right now.';
+                    else {
+                        let html = '<table><tr><td>Title</td><td>Author</td><td>ISBN</td><td>Description</td><td>Return</td></tr>'
+                        for (let it = 0; it < data.length; it++)
+                            html += '<tr><td>' + data[it].title + '</td><td>' + data[it].author + '</td><td>' + data[it].isbn + '</td><td>' + data[it].description + '</td><td><button class="btn btn-primary" onclick="returnBook(\'' + data[it].uuid + '\')">Return</button></td></tr>';
+                        html += '</table>';
+                        bookList.innerHTML = html;
+                    };
+
+
+
+
+                }).catch((err) => {
+
+                    console.log(err);
+                });
+            }
+        </script>
         <script>
-        async function signin() {
-            let wsconn = new WebSocket('wss://library.karol.gay/login');
+            function signout() {
+                console.log('SINGING OUT');
+                document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+                window.location.href = '/';
+            }
+        </script>
+        <script>
+            async function signin() {
+                let wsconn = new WebSocket('wss://library.karol.gay/login');
 
 
-            wsconn.addEventListener("open", () => {
-                console.log('connected')
-            })
+                wsconn.addEventListener("open", () => {
+                    console.log('connected')
+                })
 
-            wsconn.addEventListener("message", message => {
-                const parsed = JSON.parse(message.data);
-                console.log(parsed);
-                console.log(parsed.challange);
-                if (parsed.kind == 'challange') {
+                wsconn.addEventListener("message", message => {
+                    const parsed = JSON.parse(message.data);
+                    console.log(parsed);
+                    console.log(parsed.challange);
+                    if (parsed.kind == 'challange') {
 
-                    const publicKeyCredentialRequestOptions = {
-                        challenge: Uint8Array.from(
-                            parsed.challange, c => c.charCodeAt(0)),
-                        timeout: 60000,
+                        const publicKeyCredentialRequestOptions = {
+                            challenge: Uint8Array.from(
+                                parsed.challange, c => c.charCodeAt(0)),
+                            timeout: 60000,
+                        }
+                        navigator.credentials.get({
+                            publicKey: publicKeyCredentialRequestOptions
+                        }).then(assertion => {
+                            console.log(assertion);
+                            let assertionObject = {
+                                keyId: assertion.id,
+                                clientData: btoa(String.fromCharCode.apply(null, new Uint8Array(assertion.response.clientDataJSON))),
+                                authData: btoa(String.fromCharCode.apply(null, new Uint8Array(assertion.response.authenticatorData))),
+                                signature: btoa(String.fromCharCode.apply(null, new Uint8Array(assertion.response.signature)))
+                            }
+                            console.log(JSON.stringify(assertionObject));
+                            wsconn.send(JSON.stringify(assertionObject));
+                        }).catch(ex => {
+                            window.alert('You canceled the opration or it timed out')
+                            console.log(ex);
+                        })
                     }
-                    navigator.credentials.get({
-                        publicKey: publicKeyCredentialRequestOptions
-                    }).then(assertion => {
-                        console.log(assertion);
-                        let assertionObject = {
-                            keyId: assertion.id,
-                            clientData: btoa(String.fromCharCode.apply(null, new Uint8Array(assertion.response.clientDataJSON))),
-                            authData: btoa(String.fromCharCode.apply(null, new Uint8Array(assertion.response.authenticatorData))),
-                            signature: btoa(String.fromCharCode.apply(null, new Uint8Array(assertion.response.signature)))
-                        }
-                        console.log(JSON.stringify(assertionObject));
-                        wsconn.send(JSON.stringify(assertionObject));
-                    }).catch(ex => {
-                         window.alert('You canceled the opration or it timed out')
-                         console.log(ex);
-                    })
-                }
-                else if (parsed.kind == 'cookie') {
-                    console.log('SIGNED IN!');
-                    window.location.href = '/';
-                    document.cookie = 'token='+parsed.cookie+'; path=/';
+                    else if (parsed.kind == 'cookie') {
+                        console.log('SIGNED IN!');
+                        window.location.href = '/';
+                        document.cookie = 'token=' + parsed.cookie + '; path=/';
 
-                }
-                else if (parsed.kind == 'authentication-failure')
-                {
-                    console.log('Authentication failed', parsed.reason);
-                }
-            });
+                    }
+                    else if (parsed.kind == 'authentication-failure') {
+                        console.log('Authentication failed', parsed.reason);
+                    }
+                });
 
 
-            wsconn.addEventListener("close", () => {
-                console.log('closed');
-                delete wsconn;
-            });
-            wsconn.addEventListener("error", error => {
-                console.log(error);
-                delete wsconn;
-            })
-        }
-    </script>
+                wsconn.addEventListener("close", () => {
+                    console.log('closed');
+                    delete wsconn;
+                });
+                wsconn.addEventListener("error", error => {
+                    console.log(error);
+                    delete wsconn;
+                })
+            }
+        </script>
         <script>
-        function signup()
-{
-    let email = document.getElementById('signup-email').value;
-    fetch('https://library.karol.gay/register', {
-                        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                        body: JSON.stringify({mail: email}) // body data type must match "Content-Type" header
-                    }).then(response => {
-                        console.log(response);
-                        if(response.ok)
-                        {
-                            window.alert('Check your email to finish signup');
-                            window.location.href='/';
-                        }
-                        else
-                        {
-                            window.alert('Error signing up!')
-                        }
-                    })
-}
-    </script>
+            function signup() {
+                let email = document.getElementById('signup-email').value;
+                fetch('https://library.karol.gay/register', {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    body: JSON.stringify({ mail: email }) // body data type must match "Content-Type" header
+                }).then(response => {
+                    console.log(response);
+                    if (response.ok) {
+                        window.alert('Check your email to finish signup');
+                        window.location.href = '/';
+                    }
+                    else {
+                        window.alert('Error signing up!')
+                    }
+                })
+            }
+        </script>
     </body>
 
 
