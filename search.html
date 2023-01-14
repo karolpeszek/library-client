@@ -92,7 +92,7 @@
                 fetch('https://library.karol.gay/books/search?query=' + query).then((response) => response.json()).then((data) => {
                     console.log(data);
                     if (data.length == 0)
-                        bookList.innerHTML = 'Sorry, no books available right now. Please come back later!';
+                        bookList.innerHTML = 'Sorry, no books match your criteria.';
                     else {
                         let html = '<table><tr><td>Title</td><td>Author</td><td>ISBN</td><td>Description</td><td>Borrow or return</td></tr>'
                         for (let it = 0; it < data.length; it++) {
