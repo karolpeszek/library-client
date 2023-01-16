@@ -86,6 +86,11 @@
             try {
                 resetToken = new URLSearchParams(window.location.search).get('token');
                 decodedResetToken = parseJwt(resetToken);
+                if(decodedResetToken.exp<Date.now())
+                {
+                    window.alert('This token expired and is no longer valid. You can request a new one.');
+                window.location.href = '/lostdevice.html';
+                }
                 document.getElementById('user-confirm-label').innerHTML = 'I aknowledge that I am the owner of email address ' + decodedResetToken.mail + '.';
             } catch (err) {
                 window.alert('This token is invalid. You can request a new one. Error:', err);
