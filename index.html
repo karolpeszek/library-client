@@ -295,7 +295,7 @@
                     console.log(decodedCookie);
                     let expires = (new Date(decodedCookie.exp));
                     console.log('Cookie expires after', expires);
-                    document.cookie = 'token=' + parsed.cookie + ';path=/;expires=' + expires;
+                    document.cookie = 'token=' + parsed.cookie + ';secure;path=/;expires=' + expires;
 
                 }
                 else if (parsed.kind == 'authentication-failure') {
