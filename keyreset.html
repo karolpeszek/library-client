@@ -152,10 +152,10 @@
                         })
                     }).catch(err => {
                         console.log(err);
-                        window.alert('You canceled the opration or it timed out.');
+                        window.alert('There was an unexpected error. Sorry for inconvenience. ' + err);
                     })
                 } catch (err) {
-                    window.alert('There was an unexpected error. Sorry for inconvenience.')
+                    window.alert('There was an unexpected error. Sorry for inconvenience. ' + err)
                 }
             }
         </script>
