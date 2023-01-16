@@ -66,10 +66,10 @@
                     <p>You are signed in. You can browser, search, rent and return books
                         here:</p>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="search-query" placeholder="Pan Tadeusz..">
+                        <input type="text" class="form-control" id="search-query" placeholder="Pan Tadeusz.." oninput="document.getElementById('acknowledgement').disabled = this.value=='';">
                         <label for="search-query">Search by typing here</label>
                     </div>
-                    <button class="btn btn-primary" onclick="search()">
+                    <button id="acknowledgement" class="btn btn-primary" onclick="search()" disabled>
                         Search</button>
                     <button class="btn btn-secondary" onclick="window.location.href='/allbooks.html'" )">
                         Browse all</button>
