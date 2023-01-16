@@ -1,128 +1,155 @@
 <html>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>Library</title>
-        <link rel="icon" href="book.png">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Library</title>
+    <link rel="icon" href="book.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        @media(prefers-color-scheme:dark) {
 
-    <body>
-        <div class="container">
-            <br>
-            <div class="card">
-                <div class="card-header">New book:</div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label>Ttile:</label>
-                        <input type="text" id="title-box" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>Author:</label>
-                        <input type="text" id="author-box" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>ISBN:</label>
-                        <input type="text" name="isbn" id="isbn-box" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label>Description:</label>
-                        <textarea type="text" id="description-box" class="form-control" rows="5"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label>Owner</label>
-                        <select id="owner-select" class="form-control"></select>
-                    </div>
+            .form-select,
+            .form-control,
+            .form-control:focus {
+                background-color: #343a40;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <div class="card">
+            <div class="card-header">Edit book:</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label" for="title-box">Ttile:</label>
+                    <input type="text" id="title-box" class="form-control">
                 </div>
-            </div><br>
-            <div class="card">
-                <div class="card-header">Discard or save</div>
-                <div class="card-body">
-                    <button class="btn btn-success" onclick="save()">
-                        Save</button>
-                    <button class="btn btn-warning" onclick="discard(false)">
-                        Discard</button>
+                <div class="mb-3">
+                    <label class="form-label" for="author-box"">Author:</label>
+                    <input type=" text" id="author-box" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="author-box">ISBN:</label>
+                    <input type="text" name="isbn" id="isbn-box" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="author-box">Description:</label>
+                    <textarea spellcheck="false"
+                        oninput='this.style.height = "";this.style.height = this.scrollHeight+3 + "px"' type="text"
+                        id="description-box" class="form-control" rows=5"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="author-box">Owner</label>
+                    <select id="owner-select" class="form-select"></select>
                 </div>
             </div>
-            <br><br>
+        </div><br>
+        <div class="card">
+            <div class="card-header">Discard, save or delete</div>
+            <div class="card-body">
+                <button class="btn btn-success" onclick="save()">
+                    Save</button>
+                <button class="btn btn-warning" onclick="discard(false)">
+                    Discard</button>
+            </div>
         </div>
+        <br><br>
+    </div>
 
-        <script>
-            function refresh() {
-                fetch('https://library.karol.gay/users/get').then(response => response.json()).then(users => {
-                    let ownerlist = '<option value="default">Noone</option>';
-                    let doesUserExist = false;
-                    for (let i = 0; i < users.length; i++) {
-                        ownerlist += '<option value="' + users[i].uuid + '">' + (users[i].name || users[i].email) + '</value>';
-                        if (document.getElementById('owner-select').value == users[i].uuid) doesUserExist = true;
-                    }
-                    let selection = document.getElementById('owner-select').value;
-                    document.getElementById('owner-select').innerHTML = ownerlist;
-                    if (doesUserExist) document.getElementById('owner-select').value = selection;
-                });
-            }
-            refresh(false);
-        </script>
-
-        <script>
-            function discard(force) {
-                if (force || window.confirm('Do you really want to close without saving your work?')) window.close();
-            }
-            function save() {
-                let book = {
-                    title: document.getElementById('title-box').value,
-                    author: document.getElementById('author-box').value,
-                    isbn: document.getElementById('isbn-box').value,
-                    description: document.getElementById('description-box').value,
-                    rentedby: (document.getElementById('owner-select').value == 'default' ? null : document.getElementById('owner-select').value)
+    <script>
+        function refresh() {
+            fetch('https://library.karol.gay/users/get').then(response => response.json()).then(users => {
+                let ownerlist = '<option value="default">Noone</option>';
+                let doesUserExist = false;
+                for (let i = 0; i < users.length; i++) {
+                    ownerlist += '<option value="' + users[i].uuid + '">' + (users[i].name || users[i].email) + '</value>';
+                    if (document.getElementById('owner-select').value == users[i].uuid) doesUserExist = true;
                 }
-                fetch('https://library.karol.gay/books/add', {
-                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                    body: JSON.stringify(book) // body data type must match "Content-Type" header
-                }).then(response => {
-                    if (response.ok)
-                        discard(true);
-                    else
-                        window.alert('Error adding this book');
-                })
+                let selection = document.getElementById('owner-select').value;
+                document.getElementById('owner-select').innerHTML = ownerlist;
+                if (doesUserExist) document.getElementById('owner-select').value = selection;
+            });
+        }
+        refresh(false);
+    </script>
+
+    <script>
+        function discard(force) {
+            if (force || window.confirm('Do you really want to close without saving your work?')) window.close();
+        }
+        function save() {
+            let book = {
+                title: document.getElementById('title-box').value,
+                author: document.getElementById('author-box').value,
+                isbn: document.getElementById('isbn-box').value,
+                description: document.getElementById('description-box').value,
+                rentedby: (document.getElementById('owner-select').value == 'default' ? null : document.getElementById('owner-select').value)
             }
+            fetch('https://library.karol.gay/books/add', {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                body: JSON.stringify(book) // body data type must match "Content-Type" header
+            }).then(response => {
+                if (response.ok)
+                    discard(true);
+                else
+                    window.alert('Error adding this book');
+            })
+        }
 
-        </script>
-        <script>
-            let counter = 0;
-            function reconnect() {
-                if (counter > 10) return;
-                counter++;
-                let ws = new WebSocket('wss://library.karol.gay/updates');
+    </script>
+    <script>
+        let counter = 0;
+        function reconnect() {
+            if (counter > 10) return;
+            counter++;
+            let ws = new WebSocket('wss://library.karol.gay/updates');
 
-                ws.addEventListener("open", () => {
-                    console.log('connected')
-                })
-                ws.addEventListener("message", message => {
-                    console.log(message.data);
+            ws.addEventListener("open", () => {
+                console.log('connected')
+            })
+            ws.addEventListener("message", message => {
+                console.log(message.data);
 
-                    if (message.data == "UPDATE") {
-                        refresh(true);
-                        let uuid = new URLSearchParams(window.location.search).get('uuid');
-                        fetch('https://library.karol.gay/books/get/' + uuid).then((response) => response.json()).then((res) => {
-                            if (res.error == 'BOOK_DOES_NOT_EXIST') discard(true);
-                        }).catch((err) => {
+                if (message.data == "UPDATE") {
+                    refresh(true);
+                    let uuid = new URLSearchParams(window.location.search).get('uuid');
+                    fetch('https://library.karol.gay/books/get/' + uuid).then((response) => response.json()).then((res) => {
+                        if (res.error == 'BOOK_DOES_NOT_EXIST') discard(true);
+                    }).catch((err) => {
 
-                            console.log(err);
-                        });
-                    }
-                });
-                ws.addEventListener("close", () => {
-                    reconnect();
-                });
-                ws.addEventListener("error", error => {
-                    console.log(error);
-                    reconnect();
-                })
-            }
-            reconnect();
-        </script>
-    </body>
+                        console.log(err);
+                    });
+                }
+            });
+            ws.addEventListener("close", () => {
+                reconnect();
+            });
+            ws.addEventListener("error", error => {
+                console.log(error);
+                reconnect();
+            })
+        }
+        reconnect();
+    </script>
+    <script>
+        window.matchMedia('(prefers-color-scheme: dark)')
+            .addEventListener('change', ({ matches }) => {
+                if (matches) {
+                    document.body.setAttribute('data-bs-theme', 'dark')
+                } else {
+                    document.body.setAttribute('data-bs-theme', 'light')
+                }
+            })
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) document.body.setAttribute('data-bs-theme', 'dark')
+
+    </script>
+</body>
 
 </html>
