@@ -51,8 +51,8 @@
                 fetch('https://library.karol.gay/rental/rent/' + uuid, {
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
                 }).then(response => {
-                    if (!response.ok)
-                        window.alert('Error renting this book');
+                    console.log(response);
+                    if (!response.ok) window.alert('Error renting this book. Do you want to copy details to clipboard?');
                 })
             }
             function returnBook(uuid) {

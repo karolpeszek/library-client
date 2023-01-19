@@ -65,7 +65,7 @@
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
                 }).then(response => {
                     if (!response.ok)
-                        window.alert('Error renting this book');
+                        window.alert('Error renting this book ' + response.data);
                 })
             }
             function returnBook(uuid) {
@@ -73,7 +73,7 @@
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
                 }).then(response => {
                     if (!response.ok)
-                        window.alert('Error returning this book');
+                        window.alert('Error returning this book ' + response.data);
                 })
             }
         </script>

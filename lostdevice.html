@@ -10,7 +10,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <style>
             @media(prefers-color-scheme:dark) {
-    
+
                 .form-select,
                 .form-control,
                 .form-control:focus {
@@ -65,7 +65,7 @@
                 let email = document.getElementById('user-email').value;
                 fetch('https://library.karol.gay/lostkey', {
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                    body: JSON.stringify({ mail: email }) // body data type must match "Content-Type" header
+                    body: JSON.stringify({ email: email }) // body data type must match "Content-Type" header
                 }).then(response => {
                     console.log(response);
                     if (response.ok) {
