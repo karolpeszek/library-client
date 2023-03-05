@@ -51,9 +51,9 @@
                 let bookList = document.getElementById('users-table');
                 fetch('https://library.karol.gay/users/get').then((response) => response.json()).then((data) => {
                     console.log(data);
-                    let html = '<table class="table table-striped"><thead><tr><td><h6>UUID</h6></td><td><h6>Name</h6></td><td><h6>e-mail</h6></td></tr></thead><tbody>'
+                    let html = '<table class="table table-striped"><thead><tr><td><h6>UUID</h6></td><td><h6>Name</h6></td><td><h6>e-mail</h6></td><td><h6>Key ID</h6></td></tr></thead><tbody>'
                     for (let it = 0; it < data.length; it++)
-                        html += '<tr><td>' + data[it].uuid + '</td><td>' + data[it].name + '</td><td>' + data[it].email + '</td></tr>';
+                        html += '<tr><td>' + data[it].uuid + '</td><td>' + data[it].name + '</td><td>' + data[it].email + '</td><td>' + data[it].key + '</td></tr>';
 
                     html += '</tbody></table>';
                     bookList.innerHTML = html;
